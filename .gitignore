@@ -1,0 +1,52 @@
+# Obsidian workspace (user-specific, changes constantly)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/plugins/
+
+# User's raw data (private — not part of the repo template)
+raw/journals/*
+raw/articles/*
+raw/books/*
+raw/voice/*
+raw/conversations/*
+raw/assets/*
+
+# Keep the raw directories themselves
+!raw/journals/.gitkeep
+!raw/articles/.gitkeep
+!raw/books/.gitkeep
+!raw/voice/.gitkeep
+!raw/conversations/.gitkeep
+!raw/assets/.gitkeep
+
+# User's wiki pages (private — only the structure ships)
+# Seed concept pages are tracked; user-generated content is not
+wiki/goals/*
+wiki/projects/*
+wiki/ideas/*
+wiki/learnings/*
+wiki/health/*
+wiki/people/*
+wiki/queries/*
+
+# Keep directory structure
+!wiki/**/.gitkeep
+
+# Keep wiki system files
+!wiki/_index.md
+!wiki/_log.md
+!wiki/_disputed.md
+!wiki/_sources.md
+!wiki/_hot.md
+
+# Keep seed concept pages
+!wiki/concepts/llm-wiki-pattern.md
+!wiki/concepts/compounding-knowledge.md
+!wiki/concepts/hot-cache.md
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node (if QMD or other tools are used)
+node_modules/

@@ -1,0 +1,41 @@
+/* Wiki folder colors for Obsidian file explorer */
+
+/* System files — muted gray */
+.nav-file-title[data-path^="wiki/_"] {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Raw sources — blue */
+.nav-folder-title[data-path^="raw"] {
+  color: #4a9eff;
+}
+
+/* Wiki pages — green */
+.nav-folder-title[data-path^="wiki/goals"],
+.nav-folder-title[data-path^="wiki/projects"],
+.nav-folder-title[data-path^="wiki/ideas"],
+.nav-folder-title[data-path^="wiki/learnings"],
+.nav-folder-title[data-path^="wiki/concepts"],
+.nav-folder-title[data-path^="wiki/health"],
+.nav-folder-title[data-path^="wiki/people"] {
+  color: #50c878;
+}
+
+/* Queries and outputs — purple */
+.nav-folder-title[data-path^="wiki/queries"] {
+  color: #b39ddb;
+}
+
+/* Skills and config — dimmed */
+.nav-folder-title[data-path^="skills"],
+.nav-folder-title[data-path^="hooks"],
+.nav-folder-title[data-path^="_templates"] {
+  color: var(--text-faint);
+}
+
+/* Stub pages — orange italic */
+.nav-file-title[data-path*="stub"] {
+  color: #ffa726;
+  font-style: italic;
+}
