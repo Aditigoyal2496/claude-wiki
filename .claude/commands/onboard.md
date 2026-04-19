@@ -1,0 +1,1 @@
+Read skills/onboard/SKILL.md and follow its instructions exactly. Read CLAUDE.md and WIKI.md for context on the wiki structure and schemas. Check wiki/_index.md to determine if this is a first run (0 pages) or if the wiki already has content. Then execute the onboarding flow.

@@ -1,0 +1,11 @@
+{
+  "userIgnoreFilters": [
+    "bin",
+    "hooks",
+    "skills"
+  ],
+  "showUnsupportedFiles": false,
+  "newFileLocation": "folder",
+  "newFileFolderPath": "wiki",
+  "attachmentFolderPath": "raw/assets"
+}

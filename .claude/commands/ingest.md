@@ -1,0 +1,1 @@
+Read skills/ingest/SKILL.md and follow its instructions exactly. Read CLAUDE.md and WIKI.md for schemas and conventions. The user wants to ingest a source into the wiki. If they specified a file, ingest that file. If not, ask which file in raw/ they want to ingest. $ARGUMENTS

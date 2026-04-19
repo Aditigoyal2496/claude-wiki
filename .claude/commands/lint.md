@@ -1,0 +1,1 @@
+Read skills/lint/SKILL.md and follow its instructions exactly. Read CLAUDE.md and WIKI.md for context. Run a full health check across the wiki and generate a lint report.

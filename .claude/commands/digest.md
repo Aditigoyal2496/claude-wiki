@@ -1,0 +1,1 @@
+Read skills/digest/SKILL.md and follow its instructions exactly. Read CLAUDE.md for context. Generate a summary of recent wiki activity. $ARGUMENTS

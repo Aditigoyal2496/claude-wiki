@@ -1,0 +1,1 @@
+Read skills/save/SKILL.md and follow its instructions exactly. Read CLAUDE.md and WIKI.md for schemas. File valuable content from this conversation back into the wiki. $ARGUMENTS

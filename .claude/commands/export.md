@@ -1,0 +1,1 @@
+Read skills/export/SKILL.md and follow its instructions exactly. Export the wiki in the requested format (markdown, pdf, or site). If no format specified, ask the user. $ARGUMENTS
