@@ -9,7 +9,7 @@ Based on [Andrej Karpathy's LLM Wiki pattern](https://gist.github.com/karpathy/4
 ## Quickstart
 
 ```bash
-git clone https://github.com/your-username/claude-wiki
+git clone https://github.com/Aditigoyal2496/claude-wiki
 cd claude-wiki
 bash bin/setup-vault.sh
 ```
