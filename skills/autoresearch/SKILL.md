@@ -65,3 +65,16 @@ Edit `skills/autoresearch/references/program.md` to customize:
 - If findings conflict, present both sides rather than choosing one
 - Do not research topics the user has marked as private or out of scope
 - Web-sourced claims start at `certainty: medium` unless from highly authoritative sources
+- Stubs created during research must have `status: stub` AND `certainty: inferred`
+- Do NOT add `## Related` body sections that duplicate frontmatter `related:`
+
+---
+
+## Bookkeeping
+
+All of these must be completed after research. Do not skip any:
+
+1. **`wiki/_sources.md`** — add rows for each web source used, with pages created/updated
+2. **`wiki/_index.md`** — add/update entries for all pages touched. Update page count. Add stubs to Stubs section.
+3. **`wiki/_log.md`** — append: topic researched, sources found, pages created/updated, contradictions found
+4. **`wiki/_hot.md`** — update current session with research activity

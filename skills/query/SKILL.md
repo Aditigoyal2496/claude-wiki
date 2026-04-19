@@ -43,5 +43,9 @@ If the answer is non-trivial (required reading 3+ pages or produced novel synthe
 
 ### Step 6: Update Bookkeeping
 
-- Append to `wiki/_log.md`: what was asked, which pages were consulted
-- Update `wiki/_hot.md` current session with the query topic
+All of these must be completed. Do not skip any:
+
+1. **`wiki/_log.md`** — append: what was asked, which pages were consulted, whether the answer was filed
+2. **`wiki/_hot.md`** — update current session with the query topic
+3. **`wiki/_index.md`** — if a query output page was created in `wiki/queries/`, add it to the Queries & Outputs section and update page count
+4. **`wiki/_sources.md`** — if the query involved external information or the user provided new facts, log it

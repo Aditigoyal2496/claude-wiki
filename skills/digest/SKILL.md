@@ -77,5 +77,8 @@ Body:
 
 ### Step 5: Update Bookkeeping
 
-- Add digest to `wiki/_index.md` under Queries & Outputs
-- Append to `wiki/_log.md`
+All of these must be completed. Do not skip any:
+
+1. **`wiki/_index.md`** — add the digest page to Queries & Outputs section. Update page count.
+2. **`wiki/_log.md`** — append: "Generated digest for [date range]"
+3. **`wiki/_hot.md`** — update current session with digest activity

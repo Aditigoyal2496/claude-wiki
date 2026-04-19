@@ -48,13 +48,19 @@ For new pages:
 - Add `related:` links to existing wiki pages with comments
 
 For unanswered questions:
-- Create stub pages if the question points to a concept worth tracking
+- Create stub pages if the question points to a concept worth tracking — stubs must have `status: stub` AND `certainty: inferred`
 - Or append to existing pages under an "Open Questions" section
+
+**Body rule:** Do not add a `## Related` section that duplicates frontmatter `related:`. Frontmatter is the canonical source of relationships.
 
 ### Step 5: Update Bookkeeping
 
-- Update `wiki/_index.md`
-- Append to `wiki/_log.md`: "Saved conversation: [summary of what was filed]"
+All of these must be completed. Do not skip any:
+
+1. **`wiki/_index.md`** — add/update entries for all pages touched. Update total page count. Add stubs to the Stubs section.
+2. **`wiki/_log.md`** — append: "Saved conversation: [summary of what was filed]", pages created, pages updated
+3. **`wiki/_sources.md`** — add a row: source = `conversation (YYYY-MM-DD)`, pages created, pages updated
+4. **`wiki/_hot.md`** — update current session with save activity
 
 ### Step 6: Confirm
 

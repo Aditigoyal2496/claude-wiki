@@ -55,6 +55,7 @@ If `raw/` is empty:
 
    **Q5:** "Is there anything you've been meaning to figure out or learn? A gap you've noticed?"
    → Generates: 1-2 stub pages in appropriate folders
+   → **Stubs must have `status: stub` AND `certainty: inferred`** — even though the user mentioned the topic directly, a stub is incomplete by definition and certainty reflects page completeness, not whether the topic exists
 
 3. After generating pages, show the result: "Your wiki has X pages now. Here's what we've got: [list with links]"
 
@@ -62,9 +63,23 @@ If `raw/` is empty:
 
 ---
 
-## After Either Track
+## Page Body Rules
 
-- Update `wiki/_index.md` with all new pages
-- Append to `wiki/_log.md`: "Wiki initialized via onboarding"
-- Update `wiki/_hot.md` with session context
-- Ensure at least one cross-link exists between pages (the wiki should feel connected, not like isolated pages)
+When creating pages during onboarding:
+- Do NOT add a `## Related` section in the body that duplicates the `related:` frontmatter
+- Frontmatter `related:` (with inline comments) is the canonical source of relationships
+- The body should contain substantive content — context, tensions, open questions — not metadata restated in prose
+
+---
+
+## After Either Track — Bookkeeping Checklist
+
+All of these must be completed. Do not skip any:
+
+1. **`wiki/_index.md`** — add entries for all new pages. Update total page count. Add stubs to the "Stubs (Needing Enrichment)" section.
+2. **`wiki/_log.md`** — append an entry: operation type, track used, pages created, cross-links established
+3. **`wiki/_sources.md`** — add a row logging the onboarding as a source:
+   - Source: `onboarding interview (YYYY-MM-DD)` (for Track B) or the file path (for Track A)
+   - Pages created and pages updated
+4. **`wiki/_hot.md`** — update the "Current Session" section with what was created and any open threads
+5. Ensure at least one cross-link exists between pages (the wiki should feel connected, not like isolated pages)

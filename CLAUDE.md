@@ -65,13 +65,16 @@ Always set this honestly:
 Never write `inferred` content as if it were fact. Mark it clearly in the body:
 > _[inferred]_ This pattern may connect to X, but no source directly states this.
 
+**Stub certainty rule:** Pages with `status: stub` must always have `certainty: inferred`, regardless of how the topic was surfaced. A stub is by definition incomplete — confidence in its content is inherently low even if the user mentioned it directly. The certainty field reflects the page's completeness, not whether the topic exists.
+
 ### The `status` Field
 
 For stubs (pages created as placeholders when a concept is mentioned but not yet documented):
 ```yaml
 status: stub
+certainty: inferred
 ```
-Stubs show up in lint as "pages needing enrichment." When a source arrives that covers the topic, fill in the stub and change status.
+These two fields go together. Stubs show up in lint as "pages needing enrichment." When a source arrives that covers the topic, fill in the stub, change status to `active`, and upgrade certainty based on the source.
 
 ### Connection Strength
 
@@ -139,6 +142,12 @@ Always link on first mention of any concept, goal, project, or person that has a
 ### Page Naming
 Use lowercase kebab-case: `learn-to-focus.md`, `fitness-2026.md`
 Be specific. `goal-health.md` is bad. `run-5k-by-june.md` is good.
+
+### Page Body Structure
+Do not duplicate frontmatter in the body. Specifically:
+- Do NOT add a `## Related` section that repeats the `related:` frontmatter — frontmatter is the canonical source of relationships
+- You may include a `## See Also` section only when a relationship needs explanation that doesn't fit in a frontmatter comment
+- The body should contain substantive content (insights, context, details) — not metadata restated in prose
 
 ### Updating Existing Pages
 When a new source touches an existing page:

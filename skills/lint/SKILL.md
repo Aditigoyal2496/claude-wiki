@@ -78,4 +78,10 @@ Body should contain:
 - Suggested actions for each finding
 - Priority ranking: what to fix first
 
-Also append a summary to `wiki/_log.md`.
+## Bookkeeping
+
+All of these must be completed. Do not skip any:
+
+1. **`wiki/_index.md`** — add the lint report to Queries & Outputs section. Update page count.
+2. **`wiki/_log.md`** — append: "Lint run: [summary stats — X orphans, Y stale, Z contradictions found]"
+3. **`wiki/_hot.md`** — update current session with lint findings

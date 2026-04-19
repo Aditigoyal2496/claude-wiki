@@ -1,8 +1,8 @@
 # Wiki Index
 
 _This file is maintained by the wiki agent. Do not edit manually._
-_Last updated: 2026-04-18_
-_Total pages: 3_
+_Last updated: 2026-04-19_
+_Total pages: 8_
 
 ---
 
@@ -16,7 +16,7 @@ This is the first file the agent reads every session. It contains a one-line sum
 
 | Page | Summary | Status | Horizon | Last Updated |
 |------|---------|--------|---------|-------------|
-| — | — | — | — | — |
+| [[find-ai-product-role]] | Actively looking for a PM role at an AI-focused company | active | medium | 2026-04-19 |
 
 ---
 
@@ -24,7 +24,7 @@ This is the first file the agent reads every session. It contains a one-line sum
 
 | Page | Summary | Status | Last Updated |
 |------|---------|--------|-------------|
-| — | — | — | — |
+| [[skin-laundry-pm]] | Current client engagement — PM for Skin Laundry with LiftOff dev team | active | 2026-04-19 |
 
 ---
 
@@ -32,7 +32,7 @@ This is the first file the agent reads every session. It contains a one-line sum
 
 | Page | Summary | Strength | Last Updated |
 |------|---------|----------|-------------|
-| — | — | — | — |
+| [[self-organizing-personal-wiki]] | A personal knowledge base that keeps itself organized — this wiki is the experiment | emerging | 2026-04-19 |
 
 ---
 
@@ -40,7 +40,7 @@ This is the first file the agent reads every session. It contains a one-line sum
 
 | Page | Summary | Domain | Last Updated |
 |------|---------|--------|-------------|
-| — | — | — | — |
+| [[ai-depth-gap]] | Concern that AI reading may be broad but shallow; open questions about what depth is needed | technology | 2026-04-19 |
 
 ---
 
@@ -66,7 +66,7 @@ This is the first file the agent reads every session. It contains a one-line sum
 
 | Page | Relationship | Why They Matter | Last Updated |
 |------|-------------|----------------|-------------|
-| — | — | — | — |
+| [[me]] | self | Aditi — PM at LiftOff, currently at Skin Laundry, pursuing AI product role | 2026-04-19 |
 
 ---
 
@@ -82,4 +82,4 @@ This is the first file the agent reads every session. It contains a one-line sum
 
 | Page | Type | Mentioned In | Created |
 |------|------|-------------|---------|
-| — | — | — | — |
+| [[ai-depth-gap]] | learning | onboarding interview (2026-04-19) | 2026-04-19 |

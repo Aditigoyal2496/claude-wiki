@@ -201,7 +201,7 @@ Managed by session hooks. Older sessions roll off.
 | `paused` | Temporarily on hold |
 | `completed` | Done, kept for reference |
 | `abandoned` | Stopped, kept for learning |
-| `stub` | Placeholder — mentioned in a source but not yet documented |
+| `stub` | Placeholder — mentioned in a source but not yet documented. **Must always pair with `certainty: inferred`** |
 
 ### `strength` (ideas only)
 | Value | Meaning |

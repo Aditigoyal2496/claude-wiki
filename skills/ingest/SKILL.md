@@ -69,6 +69,7 @@ For each extracted concept, entity, or insight:
    - Use the appropriate frontmatter schema from `WIKI.md`
    - Set `certainty` honestly
    - Add `related:` links with comments explaining why
+   - Do NOT add a `## Related` body section that duplicates frontmatter — frontmatter `related:` is canonical
 4. **If a concept is mentioned but you can't document it fully**: create a **stub**
    - Set `status: stub`
    - Set `certainty: inferred`
