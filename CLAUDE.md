@@ -93,19 +93,29 @@ All operations are defined as skills in `skills/`. Use the appropriate skill for
 
 ### Session Start
 
-Every session, before doing anything else:
-1. Read `wiki/_hot.md` (recent session context)
-2. Read `wiki/_index.md` (master catalog)
-3. Surface one old page for revisiting — find the page with the oldest `last_updated` that has active related pages. Show: "Revisit: [[page-name]] hasn't been touched in X days. Still accurate?"
-4. Ask the human: "What are we working on today?"
+A `UserPromptSubmit` hook automatically injects `wiki/_hot.md` into your context on every prompt. On top of that, at the start of every session — before doing anything else:
+
+1. Read `wiki/_index.md` (master catalog — know what's in the wiki)
+2. Surface one old page for revisiting — find the page with the oldest `last_updated` that has `status: active` and at least one related page. Show: "Revisit: [[page-name]] hasn't been touched in X days. Still accurate?"
+3. Ask the human: "What are we working on today?"
+
+If the human asks a question instead of giving a command, treat it as a query — read `skills/query/SKILL.md` and follow it.
+
+### Session End
+
+Session persistence is NOT automatic. Before the session ends, either:
+- Run `/save` to file valuable content and rotate the hot cache, OR
+- At minimum, update `wiki/_hot.md` with a summary of what happened this session
+
+The `Stop` hook will remind you, but you must act on it.
 
 ### Ingest → `/ingest`
 
 See `skills/ingest/SKILL.md` for full instructions.
 
-### Query → ask any question
+### Query → ask any question, or `/query`
 
-See `skills/query/SKILL.md` for full instructions.
+When the user asks a question (even without a slash command), follow `skills/query/SKILL.md`. Any question like "what do I know about X?", "how does Y connect to Z?", or "summarize my understanding of W" is a query. You do not need to wait for `/query` — route questions automatically.
 
 ### Lint → `/lint`
 

@@ -1,1 +1,1 @@
-Read skills/digest/SKILL.md and follow its instructions exactly. Read CLAUDE.md for context. Generate a summary of recent wiki activity. $ARGUMENTS
+Read skills/digest/SKILL.md and follow its instructions exactly. Generate a summary of recent wiki activity. Default to last 7 days unless the user specifies a different range. $ARGUMENTS

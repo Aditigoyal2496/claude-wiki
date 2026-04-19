@@ -1,0 +1,1 @@
+Read skills/query/SKILL.md and follow its instructions exactly. Read CLAUDE.md for conventions. The user is asking a question about their knowledge base. Search the wiki, synthesize an answer with certainty weighting, and offer to file non-trivial answers. $ARGUMENTS

@@ -30,7 +30,7 @@ Based on [Andrej Karpathy's LLM Wiki pattern](https://gist.github.com/karpathy/4
 | **Contradiction handling** | Conflicts logged in `_disputed.md` with both positions and resolution. Never silently overwritten. | Silent overwrites or inline callouts |
 | **Stub pages** | Mentioned-but-undocumented concepts become visible stubs. Lint tracks what needs enrichment. | Gaps are invisible |
 | **Source-specific ingestion** | Different extraction rules for journals vs. articles vs. books vs. voice notes vs. conversations | All sources treated the same |
-| **Hot cache** | Rolling 3-session context via hooks. Agent picks up where you left off. | No session memory |
+| **Hot cache** | Rolling 3-session context. Hook injects recent context on every prompt. `/save` rotates the cache at session end. | No session memory |
 | **Quality-gated `/save`** | Conversations filed back into wiki only if they add value. Deduplicates against existing pages. | Conversation dumps |
 | **Belief evolution** | Certainty upgrades automatically when new sources confirm inferred claims | Static metadata |
 
@@ -81,8 +81,9 @@ The agent interviews you and generates starter pages from the conversation.
 | `ingest all` | Batch process all files in `raw/` |
 | Any question | Query the wiki — agent reads relevant pages and synthesizes an answer |
 | `/lint` | Full health check — orphans, broken links, stale pages, contradictions |
-| `/save` | File valuable parts of the conversation back into the wiki |
+| `/save` | File valuable parts of the conversation back into the wiki + rotate hot cache (run at end of session) |
 | `/save [name]` | Same, with a specific name for the output page |
+| `/query [question]` | Explicitly route a question through the query skill with certainty weighting |
 | `/digest` | Weekly summary of wiki activity, growth, and gaps |
 | `/autoresearch [topic]` | Web research on a topic, findings filed into wiki |
 | `/export markdown` | Export wiki as portable markdown bundle |
@@ -126,7 +127,7 @@ claude-wiki/
 │   ├── digest/                   # Weekly summaries
 │   ├── autoresearch/             # Web research loop
 │   └── export/                   # Portability
-├── hooks/                        # Session lifecycle (hot cache)
+├── hooks/                        # Session context injection script
 ├── _templates/                   # Obsidian Templater templates
 ├── bin/setup-vault.sh            # One-time Obsidian setup
 ├── CLAUDE.md                     # Agent operating manual

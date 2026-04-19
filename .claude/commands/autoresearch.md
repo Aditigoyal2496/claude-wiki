@@ -1,1 +1,1 @@
-Read skills/autoresearch/SKILL.md and skills/autoresearch/references/program.md, then follow the instructions exactly. Read CLAUDE.md and WIKI.md for schemas. Research the given topic and file findings into the wiki. $ARGUMENTS
+Read skills/autoresearch/SKILL.md and skills/autoresearch/references/program.md, then follow the instructions exactly. Research the given topic using web search, and file findings into the wiki. $ARGUMENTS

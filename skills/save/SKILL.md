@@ -53,16 +53,28 @@ For unanswered questions:
 
 **Body rule:** Do not add a `## Related` section that duplicates frontmatter `related:`. Frontmatter is the canonical source of relationships.
 
-### Step 5: Update Bookkeeping
+### Step 5: Rotate Hot Cache
+
+`/save` is the session-end mechanism. Rotate `wiki/_hot.md`:
+
+1. Move "Current Session" content → "Previous Session"
+2. Move "Previous Session" → "Two Sessions Ago"
+3. Discard anything older than "Two Sessions Ago"
+4. Write a new "Current Session" summary:
+   - What was ingested, queried, or discussed
+   - Pages created or updated
+   - Open threads or unfinished tasks that should carry over
+
+### Step 6: Update Bookkeeping
 
 All of these must be completed. Do not skip any:
 
 1. **`wiki/_index.md`** — add/update entries for all pages touched. Update total page count. Add stubs to the Stubs section.
 2. **`wiki/_log.md`** — append: "Saved conversation: [summary of what was filed]", pages created, pages updated
 3. **`wiki/_sources.md`** — add a row: source = `conversation (YYYY-MM-DD)`, pages created, pages updated
-4. **`wiki/_hot.md`** — update current session with save activity
+4. **`wiki/_hot.md`** — already updated in Step 5
 
-### Step 6: Confirm
+### Step 7: Confirm
 
 Show the human:
 - Pages created (with links)

@@ -1,1 +1,1 @@
-Read skills/save/SKILL.md and follow its instructions exactly. Read CLAUDE.md and WIKI.md for schemas. File valuable content from this conversation back into the wiki. $ARGUMENTS
+Read skills/save/SKILL.md and follow its instructions exactly. File valuable content from this conversation back into the wiki. Also rotate wiki/_hot.md: move Current Session to Previous Session, Previous to Two Sessions Ago, discard older. Write a new current session summary. $ARGUMENTS

@@ -1,6 +1,10 @@
 # Skill: Ingest
 
-Triggered when the user provides a source to ingest (a file in `raw/`, a pasted article, or a URL).
+Triggered when the user provides a source to ingest. Sources can arrive in three ways:
+
+1. **File path** — user points to a file in `raw/` (e.g., "ingest raw/articles/my-article.md")
+2. **Pasted content** — user pastes text directly in chat (e.g., an article, notes, highlights)
+3. **URL** — user provides a web link to fetch and ingest
 
 ---
 
@@ -8,6 +12,9 @@ Triggered when the user provides a source to ingest (a file in `raw/`, a pasted 
 
 ### Step 1: Identify and Validate Source
 
+- Determine how the source arrived (file, paste, or URL)
+- If **pasted content**: save it to the appropriate `raw/` subdirectory first (e.g., `raw/articles/article-title.md`), then proceed with ingestion. This ensures every ingested source has a file in `raw/` for traceability.
+- If **URL**: fetch the content, save to `raw/articles/`, then proceed.
 - Determine source type from location or content: journal, article, book, voice note, conversation
 - Check `wiki/_sources.md` — has this source been ingested before?
   - If **yes**: treat as an update. Read existing pages that reference this source and update them with new information. Do not create duplicate pages.
@@ -99,7 +106,7 @@ For the pages you just created or updated:
 All of these must be updated after every ingest:
 
 1. **`wiki/_sources.md`** — add a row: source path, date ingested, pages created, pages updated
-2. **`wiki/_index.md`** — add/update entries for all pages touched. Update total page count.
+2. **`wiki/_index.md`** — add/update entries for all pages touched. Update total page count. **Index summaries are the primary discovery mechanism for queries** — write them to include key terms a user might search for, not just a generic description. Example: "8-step eval methodology — failure-first rubrics, golden datasets, AI judges, meta-eval loops" is better than "Evaluation methodology."
 3. **`wiki/_log.md`** — append an entry describing what was ingested, pages created, pages updated, contradictions found (if any)
 4. **`wiki/_hot.md`** — update the "Current Session" section with ingest activity
 
@@ -120,6 +127,13 @@ After ingestion, provide a short summary:
 When the user says "ingest all of these" or points to multiple files:
 
 1. List all files to be ingested
-2. Process each one sequentially (not in parallel — order matters for cross-referencing)
-3. After each individual ingest, check if it connects to previously ingested sources in this batch
-4. At the end, provide a batch summary
+2. Sort by date if filenames or content contain dates (oldest first). Otherwise, alphabetical.
+3. Process each one sequentially (not in parallel — order matters for cross-referencing)
+4. After each individual ingest, check if it connects to previously ingested sources in this batch. If a stub was created by an earlier source and a later source fills it, update the stub instead of creating a duplicate.
+5. At the end, provide a batch summary
+
+---
+
+## User Override
+
+The user's instructions always take priority over this skill's procedure. If the user says "ingest this but don't create any new pages" or "only update existing pages" or "skip the lint check" — follow their constraints. Acknowledge what you're skipping so they know.
