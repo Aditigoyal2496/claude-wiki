@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
 # Fires on Stop event — reminds the agent to save session context.
+# Stop hooks only use top-level fields, no hookSpecificOutput needed.
 
 cat <<'EOF'
 {
   "continue": true,
-  "hookSpecificOutput": {
-    "hookEventName": "Stop"
-  },
-  "systemMessage": "Session is ending. If you have not run /save this session, update wiki/_hot.md now with a summary of what happened: pages created/updated, open threads, and anything that should carry over to the next session."
+  "stopReason": "Session ending — update wiki/_hot.md with a session summary if /save was not run."
 }
 EOF
 exit 0
