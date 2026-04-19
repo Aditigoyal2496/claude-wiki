@@ -1,44 +1,12 @@
 # claude-wiki
 
-A self-organizing knowledge wiki powered by Claude Code. Drop sources in. The agent compiles, links, and maintains everything. You read it in Obsidian.
+A self-organizing knowledge wiki powered by Claude Code + Obsidian. Drop sources in, the agent compiles and links everything, you read and query it in Obsidian. It gets smarter with every source you add.
 
-Based on [Andrej Karpathy's LLM Wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f), with improvements: certainty tracking, contradiction handling, stub pages for knowledge gaps, session persistence, and a compounding query loop.
-
----
-
-## What It Does
-
-**You** drop source material into `raw/` — articles, journal entries, book highlights, meeting notes, voice memos.
-
-**The agent** reads every source and compiles a structured wiki:
-- Extracts concepts, people, ideas, and learnings
-- Cross-links everything with wikilinks
-- Tracks what it's confident about vs. what it's guessing (`certainty: high | medium | inferred`)
-- Logs contradictions between sources instead of silently overwriting
-- Creates stubs for concepts mentioned but not yet documented
-- Remembers context across sessions via a rolling hot cache
-
-**You** ask questions against your growing knowledge base, and the answers get filed back — so every query makes the wiki smarter.
-
----
-
-## What Makes This Different
-
-| Feature | claude-wiki | Other wiki tools |
-|---------|-------------|-----------------|
-| **Certainty tracking** | Every page marks confidence level — `high`, `medium`, or `inferred`. Inferred content is flagged in the body. Lint surfaces aging inferences. | All content treated as equally true |
-| **Contradiction handling** | Conflicts logged in `_disputed.md` with both positions and resolution. Never silently overwritten. | Silent overwrites or inline callouts |
-| **Stub pages** | Mentioned-but-undocumented concepts become visible stubs. Lint tracks what needs enrichment. | Gaps are invisible |
-| **Source-specific ingestion** | Different extraction rules for journals vs. articles vs. books vs. voice notes vs. conversations | All sources treated the same |
-| **Hot cache** | Rolling 3-session context. Hook injects recent context on every prompt. `/save` rotates the cache at session end. | No session memory |
-| **Quality-gated `/save`** | Conversations filed back into wiki only if they add value. Deduplicates against existing pages. | Conversation dumps |
-| **Belief evolution** | Certainty upgrades automatically when new sources confirm inferred claims | Static metadata |
+Based on [Andrej Karpathy's LLM Wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f). Inspired by [claude-obsidian](https://github.com/AgriciDaniel/claude-obsidian).
 
 ---
 
 ## Quickstart
-
-### 1. Clone and Setup
 
 ```bash
 git clone https://github.com/your-username/claude-wiki
@@ -46,30 +14,33 @@ cd claude-wiki
 bash bin/setup-vault.sh
 ```
 
-### 2. Open in Obsidian
-
-Open the `claude-wiki` folder as a vault in Obsidian. Install recommended plugins when prompted (Calendar, Templater).
-
-### 3. Launch Claude Code
+Open the folder as a vault in Obsidian. Then launch Claude Code:
 
 ```bash
-cd claude-wiki
 claude
 ```
 
-### 4. Get Started
+Type `/onboard` — the agent will ask you a few questions and build your first pages. Or drop a file into `raw/` and say `ingest it`.
 
-**Option A — you have source material:**
-Drop any file into `raw/articles/`, `raw/journals/`, `raw/books/`, etc. Then tell Claude:
+That's it. You're running.
+
+---
+
+## How It Works
+
 ```
-ingest raw/articles/my-article.md
+You drop sources into raw/ (articles, notes, books, meeting notes)
+        ↓
+The agent reads them and builds wiki pages — linked, structured, organized
+        ↓
+You ask questions — the agent searches the wiki and gives sourced answers
+        ↓
+/save files the conversation back into the wiki
+        ↓
+The wiki gets richer → better answers → more connections → repeat
 ```
 
-**Option B — starting from scratch:**
-```
-/onboard
-```
-The agent interviews you and generates starter pages from the conversation.
+You own `raw/`. The agent owns `wiki/`. You rarely edit wiki pages directly — the agent maintains everything.
 
 ---
 
@@ -77,152 +48,104 @@ The agent interviews you and generates starter pages from the conversation.
 
 | Command | What It Does |
 |---------|-------------|
-| `ingest [file]` | Read a source, extract knowledge, create/update wiki pages |
-| `ingest all` | Batch process all files in `raw/` |
-| Any question | Query the wiki — agent reads relevant pages and synthesizes an answer |
-| `/lint` | Full health check — orphans, broken links, stale pages, contradictions |
-| `/save` | File valuable parts of the conversation back into the wiki + rotate hot cache (run at end of session) |
-| `/save [name]` | Same, with a specific name for the output page |
-| `/query [question]` | Explicitly route a question through the query skill with certainty weighting |
-| `/digest` | Weekly summary of wiki activity, growth, and gaps |
-| `/autoresearch [topic]` | Web research on a topic, findings filed into wiki |
-| `/export markdown` | Export wiki as portable markdown bundle |
-| `/export pdf` | Compile wiki into a PDF |
+| `/onboard` | First-run setup — the agent interviews you and creates starter pages |
+| `/ingest [file]` | Read a source and extract knowledge into wiki pages |
+| Just ask a question | The agent searches the wiki and gives you an answer with sources |
+| `/save` | Save valuable parts of the conversation back into the wiki (run at end of session) |
+| `/lint` | Health check — finds gaps, stale pages, contradictions |
+| `/digest` | Weekly summary of what the wiki learned |
+| `/autoresearch [topic]` | Web research on a topic, findings filed into the wiki |
+| `/export markdown` | Export wiki as portable markdown (works everywhere) |
+| `/export pdf` | Compile wiki into a PDF (needs Python + fpdf2) |
 | `/export site` | Generate a static HTML site from the wiki |
-| `/onboard` | First-run setup — interview or first-ingest guided flow |
 
 ---
 
-## Directory Structure
+## What Makes This Different
+
+### The wiki knows what it doesn't know
+
+Every page tracks how confident the agent is. Something directly from a source? High confidence. Something the agent inferred by connecting dots? Marked clearly as a guess. Over time, guesses either get confirmed by new sources or flagged for review.
+
+### Sources disagree? Both sides get logged
+
+When new information contradicts something already in the wiki, the agent doesn't silently overwrite. It logs both positions, explains its resolution, and adjusts confidence. You can see every disagreement in one place.
+
+### Gaps are visible, not invisible
+
+When a concept is mentioned but not fully documented, the agent creates a placeholder page. These show up in health checks and in the Obsidian graph as dangling nodes. Your wiki actively tells you what it still needs to learn.
+
+### Different sources get different treatment
+
+A journal entry and a research paper need different extraction. The agent knows that — journals get scanned for emotions, energy patterns, and recurring themes. Articles get their core argument, evidence, and counter-arguments. Books spawn multiple concept pages.
+
+### It remembers across sessions
+
+When you start a new session, the agent knows what you were working on last time. Open threads, unfinished questions, pages that were created — it picks up where you left off.
+
+### Conversations compound
+
+When you ask a question and get a useful answer, `/save` files it back into the wiki. That answer becomes source material for future questions. Every conversation makes the wiki smarter.
+
+---
+
+## What Goes Where
 
 ```
 claude-wiki/
-├── raw/                          # Your source material (immutable)
+├── raw/                          # Your source material (you manage this)
 │   ├── journals/                 # Journal entries, daily notes
 │   ├── articles/                 # Web articles (use Obsidian Web Clipper)
 │   ├── books/                    # Book highlights and notes
 │   ├── voice/                    # Transcribed voice memos
 │   ├── conversations/            # Meeting notes, chat exports
-│   └── assets/                   # Images referenced by sources
-├── wiki/                         # Agent-maintained wiki
-│   ├── _index.md                 # Master catalog (read first every session)
-│   ├── _log.md                   # Append-only operations log
-│   ├── _disputed.md              # Contradiction log
-│   ├── _sources.md               # Source ingestion tracker
-│   ├── _hot.md                   # Rolling session context (last 3 sessions)
+│   └── assets/                   # Images
+├── wiki/                         # Agent-maintained (don't edit directly)
 │   ├── goals/                    # One page per goal
 │   ├── projects/                 # One page per project
-│   ├── ideas/                    # One page per idea or insight
-│   ├── learnings/                # Concepts, lessons, skills
-│   ├── concepts/                 # Domain definitions and frameworks
+│   ├── ideas/                    # Ideas and insights
+│   ├── learnings/                # Lessons, concepts, skills
+│   ├── concepts/                 # Definitions and frameworks
 │   ├── health/                   # Habits, metrics, patterns
 │   ├── people/                   # People across your sources
-│   └── queries/                  # Filed query outputs, lint reports, digests
-├── skills/                       # Modular skill definitions
-│   ├── ingest/                   # Source ingestion
-│   ├── query/                    # Answer synthesis
-│   ├── lint/                     # Health checks
-│   ├── save/                     # Conversation filing
-│   ├── onboard/                  # First-run experience
-│   ├── digest/                   # Weekly summaries
-│   ├── autoresearch/             # Web research loop
-│   └── export/                   # Portability
-├── .claude/
-│   ├── commands/                 # Slash command definitions
-│   ├── hooks/                    # Session context injection + end reminder
-│   └── settings.local.json      # Hook registration
-├── _templates/                   # Obsidian Templater templates
+│   └── queries/                  # Saved answers, reports, digests
+├── skills/                       # How the agent does each operation
+├── _templates/                   # Obsidian templates for manual page creation
 ├── bin/setup-vault.sh            # One-time Obsidian setup
-├── CLAUDE.md                     # Agent operating manual
-├── WIKI.md                       # Full schema reference
-└── README.md                     # This file
+├── CLAUDE.md                     # Agent instructions (auto-loaded)
+└── WIKI.md                       # Full schema reference
 ```
-
----
-
-## How It Works
-
-### The Compounding Loop
-
-```
-Drop source into raw/
-        ↓
-Agent ingests → creates wiki pages, stubs, cross-links
-        ↓
-You query the wiki → agent synthesizes answers
-        ↓
-/save files the answer back into the wiki
-        ↓
-Wiki is richer → next query is better → next source connects to more
-```
-
-### Certainty Tracking
-
-Every wiki page has a `certainty` field:
-
-- **`high`** — directly stated in a source. The agent is confident.
-- **`medium`** — synthesized from multiple sources. Reasonable but not explicit.
-- **`inferred`** — the agent extrapolated. Marked clearly in the body with `_[inferred]_`.
-
-When a new source confirms an inferred claim, certainty is automatically upgraded. Lint surfaces inferred claims older than 30 days that haven't been confirmed.
-
-### Contradiction Handling
-
-When sources disagree, the agent:
-1. Does NOT silently overwrite the existing claim
-2. Adds a `## Contradictions` section to the relevant page
-3. Logs both positions in `_disputed.md` with the resolution
-4. Downgrades certainty on affected claims
-
-### Stub Pages
-
-When the agent encounters a concept that's mentioned but not yet documented, it creates a **stub** — a minimal placeholder page marked `status: stub`. Stubs are:
-- Visible in the index under "Stubs Needing Enrichment"
-- Visible in the Obsidian graph as dangling nodes
-- Automatically enriched when a relevant source is ingested
-- Surfaced during `/lint` with suggestions for how to fill them
-
-Stubs are your wiki's way of telling you what it doesn't know yet.
-
----
-
-## Configuration
-
-### Obsidian Plugins
-
-**Included:**
-- Templater (auto-fills frontmatter when creating pages)
-- Calendar (sidebar calendar view)
-- CSS snippets for folder color-coding
-
-**Recommended:**
-- Obsidian Git (auto-commit every 15 minutes)
-- Web Clipper browser extension (send articles to `raw/articles/`)
-
-### Autoresearch Settings
-
-Edit `skills/autoresearch/references/program.md` to customize:
-- Preferred source types and domains
-- Confidence scoring rules
-- Research depth limits
 
 ---
 
 ## Tips
 
-- **Start small.** 5-10 sources is enough to see the pattern working. Don't try to dump 1000 documents on day one.
-- **Use Obsidian Web Clipper** to send articles directly to `raw/articles/`. One click to capture, then `ingest` to process.
-- **Ask questions early.** Don't wait until the wiki is "ready." Queries at 10 pages surface different insights than queries at 100 pages.
-- **Run `/digest` weekly.** It shows you what the wiki learned and what it still needs.
-- **Trust the stubs.** They're not failures — they're your wiki being honest about what it doesn't know yet.
+- **Start small.** 5-10 sources is enough to see it working. Don't try to dump everything on day one.
+- **Use [Obsidian Web Clipper](https://obsidian.md/clipper)** to send articles straight to `raw/articles/`. One click to capture, then `/ingest` to process.
+- **Ask questions early.** Don't wait until the wiki is "big enough." Even 5 pages can surface connections you didn't notice.
+- **Run `/save` before closing.** This is how the agent remembers what happened for next time.
+- **Run `/digest` weekly.** A quick summary of what grew, what's missing, and what's worth revisiting.
+
+---
+
+## Obsidian Setup
+
+The setup script configures:
+- **Graph view** with color-coded nodes by page type
+- **Templater** with auto-filling frontmatter templates
+- **CSS snippets** for folder color-coding in the sidebar
+
+**Recommended plugins to add:**
+- [Obsidian Git](https://github.com/denolehov/obsidian-git) — auto-commits every 15 minutes
+- [Web Clipper](https://obsidian.md/clipper) — send web articles to `raw/articles/`
 
 ---
 
 ## Inspiration
 
-- [Andrej Karpathy's LLM Wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)
-- [Second Brain with Claude Code](https://x.com/) (Mercury VP's workflow)
-- [claude-obsidian](https://github.com/AgriciDaniel/claude-obsidian) by Agrici Daniel
+- [Andrej Karpathy's LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) — the pattern this is built on
+- [claude-obsidian](https://github.com/AgriciDaniel/claude-obsidian) by Agrici Daniel — the project that showed this could be packaged
+- [Second Brain with Claude Code](https://x.com/) — Mercury VP's production workflow
 
 ---
 
