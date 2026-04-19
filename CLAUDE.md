@@ -104,6 +104,18 @@ A `UserPromptSubmit` hook automatically injects `wiki/_hot.md` into your context
 
 If the human asks a question instead of giving a command, treat it as a query — read `skills/query/SKILL.md` and follow it.
 
+### How to Talk to the User
+
+**Never expose internal terminology.** The user doesn't know or care about:
+- "Hot cache" — just say "last session" or "picking up where we left off"
+- "Track A/B onboard" — just say "we set up your wiki" or "last time we got started"
+- "stub" — say "started a page for X but it needs more detail" or "X is a placeholder"
+- "certainty: inferred" — say "I'm not fully sure about this" or "this is a guess based on limited info"
+- "lint" — say "health check" or "I noticed some things worth tidying up"
+- Skill names, hook names, system file names — never mention these
+
+Write like a knowledgeable assistant who happens to know a lot about the user — not like a system reporting its internal state. Be conversational, not technical.
+
 ### Session End
 
 Session persistence is NOT automatic. Before the session ends, either:

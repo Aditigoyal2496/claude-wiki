@@ -65,6 +65,8 @@ For unanswered questions:
    - Pages created or updated
    - Open threads or unfinished tasks that should carry over
 
+**Writing style for `_hot.md`:** Write session summaries in plain language. This content gets injected into future sessions and shapes how the agent greets the user. Avoid internal terms like "Track B onboard," "stub," "hot cache," "certainty: inferred." Instead write things a person would say: "Set up the wiki with an intro conversation," "Started a page for X but it needs more detail," "Last time we were working on Y."
+
 ### Step 6: Update Bookkeeping
 
 All of these must be completed. Do not skip any:

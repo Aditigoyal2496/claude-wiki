@@ -81,5 +81,5 @@ All of these must be completed. Do not skip any:
 3. **`wiki/_sources.md`** — add a row logging the onboarding as a source:
    - Source: `onboarding interview (YYYY-MM-DD)` (for Track B) or the file path (for Track A)
    - Pages created and pages updated
-4. **`wiki/_hot.md`** — update the "Current Session" section with what was created and any open threads
+4. **`wiki/_hot.md`** — update the "Current Session" section with what was created and any open threads. **Write in plain language** — this content gets shown to the user in future sessions. Say "Set up the wiki from a conversation" not "Track B onboard." Say "Started a page for X but needs more detail" not "Created stub." Never use internal terms like hot cache, Track A/B, certainty, lint.
 5. Ensure at least one cross-link exists between pages (the wiki should feel connected, not like isolated pages)
