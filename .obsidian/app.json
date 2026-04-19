@@ -1,8 +1,8 @@
 {
   "userIgnoreFilters": [
     "bin",
-    "hooks",
-    "skills"
+    "skills",
+    ".claude"
   ],
   "showUnsupportedFiles": false,
   "newFileLocation": "folder",

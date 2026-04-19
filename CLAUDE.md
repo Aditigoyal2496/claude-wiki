@@ -43,7 +43,10 @@ claude-wiki/
     concepts/                 ← domain concepts, definitions, frameworks
     queries/                  ← filed query outputs, lint reports, digests
   skills/                     ← modular skill definitions
-  hooks/                      ← session lifecycle hooks
+  .claude/
+    commands/                 ← slash command definitions
+    hooks/                    ← session context injection + end reminder
+    settings.local.json       ← hook registration
   _templates/                 ← Obsidian Templater templates
   CLAUDE.md                   ← this file
   WIKI.md                     ← full schema reference

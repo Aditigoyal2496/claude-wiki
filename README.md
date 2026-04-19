@@ -127,7 +127,10 @@ claude-wiki/
 │   ├── digest/                   # Weekly summaries
 │   ├── autoresearch/             # Web research loop
 │   └── export/                   # Portability
-├── hooks/                        # Session context injection script
+├── .claude/
+│   ├── commands/                 # Slash command definitions
+│   ├── hooks/                    # Session context injection + end reminder
+│   └── settings.local.json      # Hook registration
 ├── _templates/                   # Obsidian Templater templates
 ├── bin/setup-vault.sh            # One-time Obsidian setup
 ├── CLAUDE.md                     # Agent operating manual
