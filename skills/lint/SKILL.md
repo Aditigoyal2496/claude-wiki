@@ -1,6 +1,8 @@
 # Skill: Lint
 
-Triggered by `/lint`. Full health check across the entire wiki.
+Triggered by `/lint`. Full, deep health check across the entire wiki.
+
+**Note:** `/digest` already runs a lightweight lint (cross-linking, stub creation, certainty upgrades) on recently changed pages. `/lint` goes deeper — it checks the entire wiki, not just recent changes. Run `/lint` when the wiki feels messy or after a large batch of ingests.
 
 ---
 

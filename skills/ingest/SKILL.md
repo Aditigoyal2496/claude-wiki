@@ -6,119 +6,99 @@ Triggered when the user provides a source to ingest. Sources can arrive in three
 2. **Pasted content** — user pastes text directly in chat (e.g., an article, notes, highlights)
 3. **URL** — user provides a web link to fetch and ingest
 
+**Design principle:** Ingest is fast. Read the source, create the pages, update the index. Deep cross-linking, contradiction checks, and certainty upgrades happen during `/lint` or `/digest`, not here.
+
 ---
 
 ## Process
 
-### Step 1: Identify and Validate Source
+### Step 1: Save Source to raw/
 
-- Determine how the source arrived (file, paste, or URL)
-- If **pasted content**: save it to the appropriate `raw/` subdirectory first (e.g., `raw/articles/article-title.md`), then proceed with ingestion. This ensures every ingested source has a file in `raw/` for traceability.
-- If **URL**: fetch the content, save to `raw/articles/`, then proceed.
-- Determine source type from location or content: journal, article, book, voice note, conversation
-- Check `wiki/_sources.md` — has this source been ingested before?
-  - If **yes**: treat as an update. Read existing pages that reference this source and update them with new information. Do not create duplicate pages.
-  - If **no**: proceed with fresh ingestion.
+- If **file already in raw/**: proceed
+- If **pasted content**: save to the appropriate `raw/` subdirectory (e.g., `raw/articles/article-title.md`) with basic frontmatter (source_type, date, attribution)
+- If **URL**: fetch the content, save to `raw/articles/`
 
-### Step 2: Read Source Fully
+Every ingested source must have a file in `raw/` for traceability.
 
-- Read the entire source document
-- Do not skim or sample — read it all
+### Step 2: Read Source + Index
 
-### Step 3: Extract Based on Source Type
+Two reads only:
+1. Read the source document fully
+2. Read `wiki/_index.md` to know what already exists
 
-Apply source-specific extraction rules (see `WIKI.md` for details):
+Do NOT read individual wiki pages at this step. The index summaries are enough to determine what exists and what's new.
 
-**Journals** — Extract:
-- Emotions and energy patterns
-- Progress on goals (link to existing goal pages if they exist)
-- Recurring themes across entries
-- People mentioned
-- Signals the human may not have noticed themselves
-- Do NOT just summarize the day
+### Step 3: Extract the Core
 
-**Articles** — Extract:
-- Core argument and thesis
-- Evidence cited
-- Connections to existing wiki concepts
-- Counter-arguments or limitations mentioned
-- Author as a `people/` page if significant
+**Keep it focused.** One source usually produces **one main page** and maybe updates to 1-2 existing pages. Don't over-extract.
 
-**Books** — Extract:
-- Key concepts as `learnings/` or `concepts/` pages (a single book may spawn 3-8 pages)
-- Author as a `people/` page
-- Link concepts together
-- Note which highlights are the human's own annotations vs. the author's words
+Source-specific extraction rules:
 
-**Voice Notes** — Extract:
-- Treat like journals but expect messier structure
-- Pull out the clearest signal
-- Note if something seems said in emotion vs. deliberate reflection
+**Articles** — One page for the core argument. Add `related:` links to existing pages based on index summaries. If the author is significant, note them in `related:` — a people page can be created during lint if they appear in 2+ sources.
 
-**Conversations** — Extract:
-- Decisions made
-- Commitments given or received
-- Ideas surfaced
-- Tensions or unresolved questions
-- People mentioned may warrant `people/` pages
+**Journals** — One page per entry (or per batch if multiple entries). Extract: emotions, energy, goal progress, recurring themes. Look for signals the human may not notice.
 
-### Step 4: Create and Update Pages
+**Books** — This is the exception to "one page." Books can produce 2-4 pages for distinct concepts. But don't create a page for every highlight — group related highlights into one concept page.
 
-For each extracted concept, entity, or insight:
+**Voice notes** — One page. Pull the clearest signal. Note if something seems emotional vs. deliberate.
 
-1. **Check if a page already exists** — search `_index.md` for the topic
-2. **If page exists**: update it
-   - Add the new source to `sources:` frontmatter
-   - Update `last_updated`
-   - Add new information under a `## [YYYY-MM-DD] Update` section
-   - Never silently overwrite existing content
-3. **If no page exists**: create one
-   - Use the appropriate frontmatter schema from `WIKI.md`
-   - Set `certainty` honestly
-   - Add `related:` links with comments explaining why
-   - Do NOT add a `## Related` body section that duplicates frontmatter — frontmatter `related:` is canonical
-4. **If a concept is mentioned but you can't document it fully**: create a **stub**
-   - Set `status: stub`
-   - Set `certainty: inferred`
-   - Add `mentioned_in:` with the source that referenced it
-   - Mark in body: `_This is a stub. Mentioned in [[source-page]] but not yet documented._`
+**Conversations** — One page. Extract: decisions, commitments, ideas, unresolved tensions.
 
-### Step 5: Certainty Upgrades
+### Step 4: Smart Match — Check for Obvious Overlaps
 
-Check all pages touched or related to the new content:
-- If a new source directly confirms something previously marked `certainty: inferred`, upgrade to `high`
-- Log the upgrade in `_log.md`
+Scan `_index.md` summaries. If a new concept clearly overlaps with an existing page (same topic, same person, same project):
 
-### Step 6: Lightweight Lint (Automatic)
+- **Read that one existing page** (only that one)
+- **Update it** instead of creating a new page
+- Add the new source to `sources:` frontmatter
+- Update `last_updated`
+- Add new information under a `## [YYYY-MM-DD] Update` section
 
-For the pages you just created or updated:
-- Check for broken `[[wikilinks]]` — do the linked pages exist?
-- Compare new claims against related pages for contradictions
-  - This is a **focused check** — compare this specific new content against the 3-5 most related pages
-  - Not a full-wiki scan
-- If contradictions found:
-  - Add a `## Contradictions` section to the relevant page
-  - Log in `wiki/_disputed.md` with both positions and your resolution
-  - Set affected claims to `certainty: medium` or `inferred`
+If no obvious overlap exists in the index → create a new page. Don't read existing pages "just to check."
 
-### Step 7: Update Bookkeeping
+### Step 5: Create New Pages
 
-All of these must be updated after every ingest:
+For genuinely new concepts:
+- Use the appropriate frontmatter schema from `WIKI.md`
+- Set `certainty` honestly
+- Add `related:` links based on index summaries (you don't need to read the full pages to know they're related)
+- Do NOT add a `## Related` body section that duplicates frontmatter
+- **Do NOT create stubs during ingest.** Note missing concepts in the page body or `related:` comments. Stubs are created during `/lint` when a concept appears across 2+ pages.
 
-1. **`wiki/_sources.md`** — add a row: source path, date ingested, pages created, pages updated
-2. **`wiki/_index.md`** — add/update entries for all pages touched. Update total page count. **Index summaries are the primary discovery mechanism for queries** — write them to include key terms a user might search for, not just a generic description. Example: "8-step eval methodology — failure-first rubrics, golden datasets, AI judges, meta-eval loops" is better than "Evaluation methodology."
-3. **`wiki/_log.md`** — append an entry describing what was ingested, pages created, pages updated, contradictions found (if any)
-4. **`wiki/_hot.md`** — update the "Current Session" section with ingest activity
+### Step 6: Update Index
 
-### Step 8: Brief the Human
+Update `wiki/_index.md`:
+- Add entries for new pages
+- Update entries for modified pages
+- Update total page count
+- **Write keyword-rich summaries** — these are the primary discovery mechanism for queries. "8-step eval methodology — failure-first rubrics, golden datasets, AI judges" is better than "Evaluation methodology."
 
-After ingestion, provide a short summary:
-- Pages created (with links)
+This is the only system file you must update during ingest.
+
+### Step 7: Brief the Human
+
+Short summary:
+- Pages created (with names)
 - Pages updated (with what changed)
-- Stubs created (gaps identified)
-- Contradictions found (if any)
-- Certainty upgrades (if any)
-- One interesting connection or insight you noticed during ingestion
+- Connections noticed (based on index, not deep reads)
+
+Keep it concise. Don't list every frontmatter field you set.
+
+---
+
+## What Ingest Does NOT Do
+
+These happen in other operations, not during ingest:
+
+| Work | When It Happens |
+|------|----------------|
+| Deep cross-linking between pages | `/lint` |
+| Contradiction checking | `/lint` |
+| Certainty upgrades (inferred → high) | `/lint` |
+| Creating stub pages | `/lint` (when a concept appears in 2+ pages) |
+| Updating `_log.md` | `/save` |
+| Updating `_hot.md` | `/save` |
+| Updating `_sources.md` | `/save` |
 
 ---
 
@@ -127,13 +107,12 @@ After ingestion, provide a short summary:
 When the user says "ingest all of these" or points to multiple files:
 
 1. List all files to be ingested
-2. Sort by date if filenames or content contain dates (oldest first). Otherwise, alphabetical.
-3. Process each one sequentially (not in parallel — order matters for cross-referencing)
-4. After each individual ingest, check if it connects to previously ingested sources in this batch. If a stub was created by an earlier source and a later source fills it, update the stub instead of creating a duplicate.
-5. At the end, provide a batch summary
+2. Sort by date if available (oldest first), otherwise alphabetical
+3. Process each one using the fast path above
+4. At the end, provide a batch summary: X sources ingested, Y pages created, Z pages updated
 
 ---
 
 ## User Override
 
-The user's instructions always take priority over this skill's procedure. If the user says "ingest this but don't create any new pages" or "only update existing pages" or "skip the lint check" — follow their constraints. Acknowledge what you're skipping so they know.
+The user's instructions always take priority. If they say "read the full pages and do deep linking" — do it. If they say "just save it, don't create any pages" — do that. Acknowledge what you're doing differently.

@@ -2,29 +2,44 @@
 
 _Rolling window of the last 3 sessions. Managed by session hooks. Do not edit manually._
 
-## Current Session (2026-04-19)
+## Current Session (2026-04-20)
 
-**Operation:** `/onboard` — Track B (interview, no raw sources yet).
+**Operation:** `/ingest` — first real source ingestion.
 
-**Pages created:**
-- [[me]] — Aditi, PM at LiftOff, currently at Skin Laundry client
-- [[skin-laundry-pm]] — current project; referral-flow bug is a live thread
-- [[find-ai-product-role]] — active goal (medium horizon)
-- [[self-organizing-personal-wiki]] — recurring idea (emerging)
-- [[ai-depth-gap]] — learning stub
+**Source ingested:** `raw/articles/pm-ai-work-system.md` — a first-person article from another PM who built an end-to-end AI-native work system on Claude Code (MCP integrations to DBs/Slack/Notion/Gmail/Granola/Metabase, custom memory system, skill library, `/akash` personal-voice agent). Source URL not provided.
+
+**User intent:** Aditi said *"I want to build something like this"* after reading — this became a new goal page.
+
+**Pages created (4):**
+- [[mcp-servers]] (concept) — connectivity layer
+- [[personal-voice-agent]] (concept) — the /akash pattern
+- [[ai-native-pm-workflow]] (idea, emerging) — the 4-layer pattern synthesized from the article
+- [[build-pm-ai-work-system]] (goal, medium horizon) — Aditi's new goal
+
+**Pages updated (4):**
+- [[ai-depth-gap]] — promoted from stub to active; certainty downgraded to medium (the article offers direct counter-evidence that CS-background isn't load-bearing)
+- [[self-organizing-personal-wiki]] — strength upgraded emerging → developed
+- [[find-ai-product-role]] — linked to the new complementary goal
+- [[me]] — new active goal added
 
 **Open threads / things to watch:**
-- Referral-flow bug on [[skin-laundry-pm]] is taking significant energy — worth revisiting whether it's resolved next session
-- [[ai-depth-gap]] is a stub — next session(s) should start filling it in, especially as AI-focused sources get ingested
-- Information lives in Jira/Slack/Docs/Sheets — future ingestion guidance should target those as source channels
+- [[build-pm-ai-work-system]] has no concrete first action yet. The article's lesson: one working end-to-end workflow creates the momentum for everything else. Good next session move: define that first workflow — probably something tied to [[skin-laundry-pm]] so the payoff is immediate.
+- Referral-flow bug on [[skin-laundry-pm]] still open from last session.
+- Source attribution for the ingested article is unknown — worth asking Aditi for the URL if she has it, for the source record.
 
 **Suggested next steps for the user:**
-- Drop source files into `raw/` (journals, articles, meeting notes, book highlights) and ask to ingest
-- Or dive into any of the new pages and flesh them out
+- Decide on the first workflow to build (likely Jira + Docs + Slack integration tied to current Skin Laundry work)
+- Or drop more AI-related sources to keep building out [[ai-depth-gap]] and [[ai-native-pm-workflow]]
 
-## Previous Session
+## Previous Session (2026-04-19)
 
-_No previous session recorded._
+**Operation:** Onboarding interview (no raw sources yet).
+
+**Pages created:** [[me]], [[skin-laundry-pm]], [[find-ai-product-role]], [[self-organizing-personal-wiki]], [[ai-depth-gap]].
+
+**Open threads carried forward:**
+- Skin Laundry referral-flow bug still active
+- Aditi's info is scattered across Jira/Slack/Docs/Sheets — future ingestion should target those channels
 
 ## Two Sessions Ago
 
