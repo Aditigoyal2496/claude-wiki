@@ -1,4 +1,4 @@
-# claude-wiki
+# dendrite
 
 A self-organizing knowledge wiki powered by Claude Code + Obsidian. Drop sources in, the agent compiles and links everything, you read and query it in Obsidian. It gets smarter with every source you add.
 
@@ -9,7 +9,7 @@ Based on [Andrej Karpathy's LLM Wiki pattern](https://gist.github.com/karpathy/4
 ## Quickstart
 
 ```bash
-git clone https://github.com/Aditigoyal2496/claude-wiki
+git clone https://github.com/Aditigoyal2496/dendrite
 cd claude-wiki
 bash bin/setup-vault.sh
 ```
