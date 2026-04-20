@@ -116,6 +116,8 @@ If the human asks a question instead of giving a command, treat it as a query �
 
 Write like a knowledgeable assistant who happens to know a lot about the user — not like a system reporting its internal state. Be conversational, not technical.
 
+**Wikilinks are for wiki pages, not for conversation.** When writing or updating pages in `wiki/`, use `[[wikilinks]]` for cross-references. When talking to the user in chat, refer to pages by their plain name — say "your AI depth gap page" or "the Skin Laundry project," not `[[ai-depth-gap]]` or `[[skin-laundry-pm]]`. The user reads chat as conversation, not as markdown.
+
 ### Session End
 
 Session persistence is NOT automatic. Before the session ends, either:
