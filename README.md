@@ -2,7 +2,7 @@
 
 A self-organizing knowledge wiki powered by Claude Code + Obsidian. Drop sources in, the agent compiles and links everything, you read and query it in Obsidian. It gets smarter with every source you add.
 
-Based on [Andrej Karpathy's LLM Wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f). Inspired by [claude-obsidian](https://github.com/AgriciDaniel/claude-obsidian).
+Based on [Andrej Karpathy's LLM Wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f).
 
 ---
 
@@ -144,8 +144,6 @@ The setup script configures:
 ## Inspiration
 
 - [Andrej Karpathy's LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) — the pattern this is built on
-- [claude-obsidian](https://github.com/AgriciDaniel/claude-obsidian) by Agrici Daniel — the project that showed this could be packaged
-- [Second Brain with Claude Code](https://x.com/) — Mercury VP's production workflow
 
 ---
 
